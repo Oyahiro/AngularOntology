@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatChipsModule} from '@angular/material/chips';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatDividerModule,
     MatButtonModule,
     MatChipsModule,
-    CdkTableModule,
+    MatTableModule,
     MatIconModule,
     TranslateModule.forRoot({
       loader: {

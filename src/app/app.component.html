@@ -10,7 +10,7 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>Formulario</mat-card-title>
-          &nbsp;<span class="material-icons" style="font-size: large">info</span>
+          &nbsp;<span class="material-icons" style="font-size: large; cursor: pointer;" (click)="showDiagram()">info</span>
         </mat-card-header>
         <mat-card-content>
           <mat-form-field appearance="fill" class="full-width">
@@ -44,9 +44,16 @@
           <mat-chip-list>
             <mat-chip *ngFor="let clazz of selectedClasses">{{clazz | translate}}</mat-chip>
             <span class="material-icons"
+                  style="cursor: pointer;"
                   *ngIf="selectedClasses.length > 0"
                   (click)="removeLastClass()">
               skip_previous
+            </span>
+            <span class="material-icons"
+                  style="cursor: pointer;"
+                  *ngIf="selectedClasses.length > 0"
+                  (click)="clearData()">
+              clear
             </span>
           </mat-chip-list>
         </div><br>
@@ -61,16 +68,16 @@
     </mat-grid-tile>
 
     <mat-grid-tile [colspan]="3" [rowspan]="1">
-      <table cdk-table [dataSource]="dataSource">
-        <!-- Position Column -->
-        <ng-container *ngFor="let property of selectedProperties" cdkColumnDef="{{property}}">
-          <th cdk-header-cell *cdkHeaderCellDef>{{property | translate}}</th>
-          <td cdk-cell *cdkCellDef="let element"> {{element[property]}} </td>
+      <table *ngIf="selectedProperties.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column" *ngFor="let column of selectedProperties">
+          <th mat-header-cell *matHeaderCellDef> {{column | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
         </ng-container>
 
-        <tr cdk-header-row *cdkHeaderRowDef="selectedProperties"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: selectedProperties;"></tr>
+        <tr mat-header-row *matHeaderRowDef="selectedProperties"></tr>
+        <tr mat-row *matRowDef="let row; columns: selectedProperties;"></tr>
       </table>
+
     </mat-grid-tile>
   </mat-grid-list>
 </div>

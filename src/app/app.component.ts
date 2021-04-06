@@ -3,6 +3,7 @@ import {classes, relations, dataProperties} from '../environments/environment';
 import {HttpClientService} from './providers/http-client-service';
 import {FormControl} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-root',
@@ -60,12 +61,30 @@ export class AppComponent {
     }
   }
 
+  public clearData(): void {
+    this.selectedClasses = [];
+    this.classesList = classes;
+    this.properties.setValue([]);
+    this.reloadPropertiesList();
+    this.dataSource = [];
+  }
+
+  public showDiagram(): void {
+    Swal.fire({
+      title: 'Diagrama',
+      text: 'Recuerda que en la consulta las clases deben seguir un camino',
+      imageUrl: 'assets/images/diagram.png',
+      imageWidth: 600,
+      imageHeight: 150,
+      imageAlt: 'Ontology diagram',
+    });
+  }
+
   private reloadClassesList(value: string): void {
     this.classesList = this.getRelations(value);
     this.classesList = this.classesList.filter(clazz => {
       return this.selectedClasses.indexOf(clazz) < 0;
     });
-    console.log(this.selectedClasses);
   }
 
   private reloadPropertiesList(): void {
